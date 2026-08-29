@@ -37,7 +37,7 @@ class User(Base):
         nullable=False
     )
 
-    hashed_password: Mapped[str] = mapped_column(
+    password: Mapped[str] = mapped_column(
         String(255),
         nullable=False
     )
@@ -50,7 +50,7 @@ class User(Base):
 
     wishlist_items: Mapped[List["Wishlist"]] = relationship(
         "Wishlist", back_populates="user", cascade="all, delete-orphan"
-        )
+    )
     reviews: Mapped[List["Review"]] = relationship("Review", back_populates="user", cascade="all, delete-orphan")
 
 
@@ -115,7 +115,7 @@ class Product(Base):
 
     images: Mapped[List["ProductImage"]] = relationship(
         "ProductImage", back_populates="product", cascade="all, delete-orphan"
-        )
+    )
 
     category_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("categories.id", ondelete="SET NULL"),

@@ -24,21 +24,21 @@ async def lifespan(app: FastAPI):
                 id=1,
                 username="admin_user",
                 email="admin@shop.com",
-                hashed_password=hash_password("admin123"),
+                password=hash_password("admin123"),
                 role=UserRole.ADMIN,
             )
             editor_user = User(
                 id=2,
                 username="editor_user",
                 email="editor@shop.com",
-                hashed_password="hashed_editor_password",
+                password=hash_password("editor123"),
                 role=UserRole.EDITOR,
             )
             customer_user = User(
                 id=3,
                 username="customer_user",
                 email="customer@shop.com",
-                hashed_password="hashed_customer_password",
+                password=hash_password("customer123"),
                 role=UserRole.CUSTOMER,
             )
 
@@ -48,7 +48,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="E-Commerce API", lifespan=lifespan)
+app = FastAPI(title="AURAE E-Commerce API", lifespan=lifespan)
 
 app.include_router(auth.router)
 app.include_router(users.router)
