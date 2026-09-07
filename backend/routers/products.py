@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from database import get_db
 from dependencies import require_role
@@ -13,7 +13,7 @@ router = APIRouter(prefix="/products", tags=["Products"])
 # Public: View Products
 @router.get("/", response_model=list[ProductResponse])
 def get_products(db: Session = Depends(get_db)):
-    results = db.execute(select(Product))
+    results = db.execute(select(Product).options(joinedload(Product.category)))
     return results.scalars().all()
 
 

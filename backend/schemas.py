@@ -43,6 +43,8 @@ class CategoryUpdate(BaseModel):
 
 class CategoryResponse(BaseModel):
     id: int
+    name: str
+    description: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -94,6 +96,7 @@ class ProductResponse(BaseModel):
     stock: int
     image_url: str
     images: list[ProductImageResponse] = []
+    category_id: int | None = None
     category: CategoryResponse | None = None
     average_rating: float = 0.0
     total_reviews: int = 0
